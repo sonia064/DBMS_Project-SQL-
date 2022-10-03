@@ -1,0 +1,1708 @@
+alter session set "_ORACLE_SCRIPT"=true;
+ create user dbms64
+  2  identified by 123;
+User created.
+
+SQL> grant dba to dbms64;
+
+Grant succeeded.
+
+SQL> conn dbms64/123@orcl;
+Connected.
+SQL> show user;
+USER is "DBMS64"
+-------------------------------------------------------------------------------------------------------------
+  create table Administrative
+  2  (
+  3     Administrative_name     varchar2(40),
+  4     Educational_qualification       varchar2(8),
+  5     Designation     varchar2(20),
+  6     Phone   number  constraint administrative_phone_uk unique,
+  7     Email   varchar2(30) constraint administrative_email_uk unique
+  8  );
+
+Table created.
+
+insert into administrative
+  2  values('Professor Dr. Md. Tito Mia','FCPS','Principal',51674388,'principal@dmc.gov.bd');
+
+ insert into administrative
+  2  values('Professor Dr. Md. Tito Mia','FCPS','Principal',51674377,'dmc_principal@yahoo.com');
+
+ insert into administrative
+  2  values('Prof. Dr. Md. Shafiqul Alam ','FCPS','Vice Principal',88763453,'vice_principal@dmc.gov.bd');
+
+ insert into administrative
+  2  values('Prof. Dr. Md. Shafiqul Alam ','FCPS','Vice Principal',88763454,'drshamimk41@yahoo.com');
+
+----------------------------------------------------------------------------------------------------------------
+
+SQL> create table doctors
+  2  (
+  3             doctor_id  number constraint doctors_doctor_id_pk primary key,
+  4             doctor_name varchar2(30),
+  5             dept_id number,
+  6             edicational_qualification varchar2(20),
+  7             designation varchar2(25),
+  8             phone_number number constraint doctors_phone_number_uk unique,
+  9             email varchar2(30),
+ 10             gender varchar2(10),
+ 11             visiting_hour varchar2(10),
+ 12             salary number
+ 13  );
+
+insert into doctors
+  2  values(101,'Dr.Sengupta kiswara',2221,'M.Phil','Professor',01676438745,'segupta.bd@gmail.com','Male','7Hour',103000);
+
+
+
+SQL> insert into doctors
+  2  values(102,'Dr.Shakil Shams',2221,'M.Phil','Associate Professor',01876534865,'shakil.bd@gmail.com','Male','5Hour',103000);
+
+
+
+SQL> insert into doctors
+  2  values(103,'Dr.Dilruba Begum',3331,'M.Phil','Professor',01854378945,'dilruba.bd@gmail.com','Female','6Hour',102000);
+
+
+
+SQL> insert into doctors
+  2  values(104,'Dr.Nahid Yaemin',4441,'M.O','Professor',0185437765,'nahid.bd@gmail.com','male','7Hour',103000);
+
+
+
+SQL> insert into doctors
+  2  values(105,'Dr.Pourobi Mollik',4441,'MBBS','Lecturer',01864537765,'pourobi.bd@gmail.com','Female','6Hour',90000);
+
+
+
+SQL> insert into doctors
+  2  values(106,'Dr.Konika Das',3331,'MBBS','Lecturer',01964537765,'konika.bd@gmail.com','Female','6Hour',103000);
+
+
+SQL> insert into doctors
+  2  values(107,'Dr.Odhir Kumar',5551,'M.Phil','Assistant Professor',01374698765,'odhir.bd@gmail.com','male','7Hour',60000);
+
+
+
+SQL> insert into doctors
+  2  values(108,'Dr.Shimanto Al Ahsan',4441,'M.O','Associate Professor',01787634345,'shimato.bd@gmail.com','male','4Hour',80000);
+
+ insert into doctors
+  2  values(109,'Dr.Tahmina Akter',3331,'M.O','Associate Professor',01345267894,'tahmina.bd@gmail.com','Female','5Hour',60000);
+
+
+
+SQL> insert into doctors
+  2  values(110,'Dr.Urmy Saha',7771,'FCPS','Professor and Head of Department',01787621045,'urmy.bd@gmail.com','male','7Hour',105000);
+
+
+SQL> insert into doctors
+  2  values(111,'Dr.Rashada Akter',2221,'MBBS','Assistant Professor',01887621045,'rashada.bd@gmail.com','Female','6Hour',500000);
+
+
+
+SQL> insert into doctors
+  2  values(112,'Dr.Mousumi Afroj',4441,'M.Phil','Professor',01894621045,'mousumi.bd@gmail.com','Female','6Hour',101000);
+
+
+SQL> insert into doctors
+  2  values(113,'Dr.Sanjida Akter Suma',5551,'M.Phil','Head of Department',01994621045,'sanjida.bd@gmail.com','Female','4Hour',75000);
+
+
+
+SQL> insert into doctors
+  2  values(114,'Dr.Tabassum Nehar',5551,'MBBS','Assistane Professor',01923141045,'tabassum.bd@gmail.com','Female','7Hour',450000);
+
+
+
+SQL> insert into doctors
+  2  values(115,'Dr.Kazi Giyas Uddin',6661,'FCPS','Head of Department',01927641045,'kazigiyas.bd@gmail.com','male','6Hour',106000);
+
+
+
+SQL> insert into doctors
+  2  values(116,'Dr.Nazma Haque',7771,'FCPS','Head of Department',01923211045,'nazma1.bd@gmail.com','male','5Hour',107000);
+
+
+
+SQL> insert into doctors
+  2  values(117,'Dr.Afrina',7771,'FCPS','professor',01927121045,'afrina.bd@gmail.com','Female','5Hour',700000);
+
+
+
+SQL> insert into doctors
+  2  values(118,'Dr.Riyaj Mahmud',6661,'M.D','Associate Professor',01727121045,'riyaj.bd@gmail.com','male','6Hour',400000);
+
+
+
+SQL> insert into doctors
+  2  values(119,'Dr.Imrul Saha',7771,'M.O','Associate Professor',01797121045,'imrul.bd@gmail.com','male','5Hour',300000);
+
+------------------------------------------------------------------------------------------------------------------------------------
+ create table departments
+  2  (
+  3             department_id number,
+  4             department_name varchar2(20),
+  5             dept_doctor_id number,
+  6  constraint departments_dept_doctor_id_fk foreign key(dept_doctor_id)
+  7  references doctors(doctor_id)
+  8  );
+
+SQL> insert into departments
+  2  values(2221,'Anatomy',101);
+
+1 row created.
+
+SQL> insert into departments
+  2  values(2221,'Anatomy',102);
+
+1 row created.
+
+SQL> insert into departments
+  2  values(2221,'Anatomy',111);
+
+1 row created.
+
+SQL> insert into departments
+  2  values(3331,'Physiology',103);
+
+1 row created.
+
+SQL> insert into departments
+  2  values(3331,'Physiology',106);
+
+1 row created.
+
+SQL> insert into departments
+  2  values(3331,'Physiology',108);
+
+1 row created.
+
+SQL> insert into departments
+  2  values(4441,'Cardiac Surgery',104);
+
+1 row created.
+
+SQL> insert into departments
+  2  values(4441,'Cardiac Surgery',105);
+
+1 row created.
+
+SQL> insert into departments
+  2  values(4441,'Cardiac Surgery',109);
+
+1 row created.
+
+SQL> insert into departments
+  2  values(4441,'Cardiac Surgery',112);
+
+1 row created.
+
+SQL> insert into departments
+  2  values(5551,'Medicine',107);
+
+1 row created.
+
+SQL> insert into departments
+  2  values(5551,'Medicine',113);
+
+1 row created.
+
+SQL> insert into departments
+  2  values(5551,'Medicine',114);
+
+1 row created.
+
+SQL> insert into departments
+  2  values(6661,'Neurology',115);
+
+1 row created.
+
+SQL> insert into departments
+  2  values(6661,'Neurology',118);
+
+1 row created.
+
+SQL> insert into departments
+  2  values(7771,'Plastic Surgery',110);
+
+1 row created.
+
+SQL> insert into departments
+  2  values(7771,'Plastic Surgery',116);
+
+1 row created.
+
+SQL> insert into departments
+  2  values(7771,'Plastic Surgery',117);
+
+1 row created.
+
+SQL> insert into departments
+  2  values(7771,'Plastic Surgery',119);
+
+1 row created.
+
+SQL>
+
+------------------------------------------------------------------------------------------------
+
+create table courses
+  2  (
+  3     course_id number constraint courses_course_id_pk primary key,
+  4     course_name varchar2(25)
+  5  );
+
+SQL> insert into courses
+  2  values(2221,'Anatomy');
+
+1 row created.
+
+SQL> insert into courses
+  2  values(3331,'Physiology');
+
+1 row created.
+
+SQL> insert into courses
+  2  values(4441,'Cardiac Surgery');
+
+1 row created.
+
+SQL> insert into courses
+  2  values(5551,'Medicine');
+
+1 row created.
+
+SQL> insert into courses
+  2  values(6661,'Neurology');
+
+1 row created.
+
+SQL> insert into courses
+  2  values(7771,'Plastic Surgery');
+
+1 row created.
+
+------------------------------------------------------------------------------------------------
+create table students
+  2  (
+  3     student_id number constraint students_student_id_pk primary key,
+  4     student_name varchar2(30),
+  5     level_term varchar2(25),
+  6     semester varchar2(15),
+  7     cours_code number,
+  8  constraint students_cours_code_fk foreign key(cours_code)
+  9  references courses(course_id),
+ 10  session_start varchar2(15),
+ 11  session_end varchar2(20),
+ 12  email varchar2(30) constraint students_email_uk unique,
+ 13  gender varchar2(8)
+ 14  );
+
+Table created.
+
+insert into students
+  2  values(1111001,'Benjamin James','4-2','Spring',2221,'12-02-2016','12-02-2021','benjaminstudent@gmail.com','Female');
+ insert into students
+  2  values(1111002,'Corine Alise','5-1','Spring',2221,'24-05-2014','24-05-2019','corinestudent@gmail.com','Female');
+
+1 row created.
+
+SQL> insert into students
+  2  values(1111004,'Oscar Amaro','5-2','Summar',2221,'24-12-2014','24-05-2019','oscarstudent@gmail.com','male');
+
+1 row created.
+
+SQL> insert into students
+  2  values(1111007,'Jackson William','3-1','Summar',3331,'24-12-2014','24-12-2019','jacksonstudent@gmail.com','Female');
+
+1 row created.
+
+SQL> insert into students
+  2  values(1111008,'Allison Sue','3-2','Spring',3331,'20-05-2018','20-05-2023','allisonstudent@gmail.com','male');
+
+1 row created.
+
+SQL> insert into students
+  2  values(1111010,'Kathryn Melissa','4-1','Spring',5551,'20-02-2013','20-02-2018','kathrynstudent@gmail.com','male');
+
+1 row created.
+
+SQL> insert into students
+  2  values(1111011,'Philip John','2-1','Spring',5551,'20-09-2018','20-09-2023','philipstudent@gmail.com','Female');
+
+1 row created.
+
+SQL> insert into students
+  2  values(1111012,'Bianca Magali','2-1','Spring',4441,'20-09-2018','20-09-2023','biancastudent@gmail.com','male');
+
+1 row created.
+
+SQL> insert into students
+  2  values(1111015,'Benjamin Eli','2-2','Summar',6661,'06-04-2019','06-04-2024','elistudent@gmail.com','Female');
+
+1 row created.
+
+SQL> insert into students
+  2  values(1111016,'Emma Elizabeth','1-1','Spring',4441,'02-09-2020','02-09-2025','emmastudent@gmail.com','Female');
+
+1 row created.
+
+SQL> insert into students
+  2  values(1111017,'Lewis Yoder ','1-1','Spring',6661,'02-09-2020','02-09-2025','lewisstudent@gmail.com','male');
+
+1 row created.
+
+SQL> insert into students
+  2  values(1111020,'Alisha Dawn','1-2','Summar',6661,'05-04-2019','05-04-2024','alishastudent@gmail.com','Female');
+
+1 row created.
+
+SQL>
+SQL> insert into students
+  2  values(1111022,'Dana Michelle','5-2','Summar',7771,'24-12-2014','24-12-2019','danastudent@gmail.com','male');
+
+1 row created.
+
+SQL> insert into students
+  2  values(1111023,'Barrett William','3-1','Summar',6661,'24-12-2014','24-12-2019','barrettstudent@gmail.com','male');
+
+1 row created.
+
+SQL> insert into students
+  2  values(1111024,'Emily Ann','3-2','Summar',7771,'20-05-2018','20-05-2023','emilystudent@gmail.com','Female');
+
+1 row created.
+
+SQL> insert into students
+  2  values(1111027,'Kathryn Ellen ','2-2','Summar',7771,'10-05-2018','20-06-2023','ellenstudent@gmail.com','Female');
+
+1 row created.
+
+SQL> insert into students
+  2  values(1111030,'Emma Lynn','2-1','Spring',5551,'10-05-2018','20-06-2023','lyannstudent@gmail.com','male');
+
+1 row created.
+
+SQL> insert into students
+  2  values(1111033,'Erica Rose','5-1','Spring',2221,'24-05-2014','24-05-2019','rosestudent@gmail.com','Female');
+
+1 row created.
+
+SQL> insert into students
+  2  values(1111037,'Nicole Lea','4-2','Spring',3331,'12-02-2016','24-05-2022','nicolestudent@gmail.com','male');
+
+1 row created.
+
+SQL> insert into students
+  2  values(1111038,'Nicholas Scott','4-1','Spring',4441,'20-02-2013','24-05-2019','scottstudent@gmail.com','male');
+
+1 row created.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+ create table classes
+    (
+    cour_id number,
+    constraint classes_cour_id_fk foreign key(cour_id)
+    references courses(course_id),
+    time varchar2(10),
+    schedule date default sysdate,
+    prof_id number,
+    constraint classes_prof_id_fk foreign key(prof_id)
+    references doctors(doctor_id)
+   );
+
+Table created.
+
+SQL> insert into classes
+    values(2221,'7.30','4-jul-1017',101);
+
+1 row created.
+
+SQL> insert into classes
+    values(2221,'7.30','5-jul-2017',102);
+
+1 row created.
+
+SQL> insert into classes
+    values(2221,'7.30','6-jul-2017',103);
+
+1 row created.
+
+SQL> insert into classes
+    values(3331,'7.00','10-jul-2017',104);
+
+1 row created.
+
+SQL> insert into classes
+    values(3331,'8.00','11-jul-2017',105);
+
+1 row created.
+
+SQL> insert into classes
+    values(3331,'8.00','12-jul-2017',107);
+
+1 row created.
+
+SQL> insert into classes
+    values(4441,'9.30','13-jul-2017',108);
+
+1 row created.
+
+SQL> insert into classes
+    values(4441,'3.30','14-jul-2017',109);
+
+1 row created.
+
+SQL> insert into classes
+   values(4441,'11.00','15-jul-2017',110);
+
+1 row created.
+
+SQL> insert into classes
+    values(4441,'11.00','16-jul-2017',111);
+
+1 row created.
+
+SQL> insert into classes
+    values(5551,'2.30','1-jul-2017',112);
+
+1 row created.
+
+SQL> insert into classes
+    values(5551,'12.30','03-jul-2017',113);
+
+1 row created.
+
+SQL> insert into classes
+    values(6661,'2.00','08-jul-2017',114);
+
+1 row created.
+
+SQL> insert into classes
+    values(6661,'3.00','09-jul-2017',115);
+
+1 row created.
+
+SQL> insert into classes
+    values(7771,'3.00','18-jul-2017',118);
+
+1 row created.
+
+SQL> insert into classes
+    values(7771,'5.40','19-jul-2017',110);
+
+1 row created.
+
+SQL> insert into classes
+    values(7771,'5.40','23-jul-2017',116);
+
+1 row created.
+
+
+SQL> insert into classes
+    values(7771,'2.40','25-jul-2017',117);
+
+1 row created.
+
+SQL> insert into classes
+    values(5551,'7.00','28-jul-2017',119);
+
+1 row created.
+
+
+
+-------------------------------------------------------------------------------------------------
+
+create table internship
+  2  (
+  3  Intern_student_name varchar2(35),
+  4  salary number constraint internship_salary_nn not null,
+  5  working_hour varchar2(20)
+  6  );
+
+Table created.
+
+SQL> insert into internship
+  2  values('Sabikon Nahar',60000,'7 hour');
+
+1 row created.
+
+SQL> insert into internship
+  2  values('Oishi Liza',60000,'7 hour');
+
+1 row created.
+
+SQL> insert into internship
+  2  values('Tanannam Islam',50000,'6 hour');
+
+1 row created.
+
+SQL> insert into internship
+  2  values('Joty Islam',50000,'6 hour');
+
+1 row created.
+
+SQL> insert into internship
+  2  values('Nahin Hasan',55000,'6.5 hour');
+
+1 row created.
+
+SQL> insert into internship
+  2  values('Forhad Uddin',65000,'6 hour');
+
+1 row created.
+
+SQL> insert into internship
+  2  values('Nuri Zerin',45000,'4 hour');
+
+1 row created.
+
+SQL> insert into internship
+  2  values('Brinty Alam',45000,'4 hour');
+
+1 row created.
+
+SQL> insert into internship
+  2  values('Fariha Alam',30000,'3 hour');
+
+1 row created.
+
+SQL> insert into internship
+  2  values('Sonia Akter',40000,'5 hour');
+
+1 row created.
+
+SQL> insert into internship
+  2  values('Tania Akter',45000,'5 hour');
+
+1 row created.
+
+SQL> insert into internship
+  2  values('Md.Mamun',60000,'6 hour');
+
+1 row created.
+
+SQL> insert into internship
+  2  values('Al Mahmud',56000,'6 hour');
+
+1 row created.
+
+SQL> insert into internship
+  2  values('Ahosan Habib',50000,'5 hour');
+
+1 row created.
+
+SQL> insert into internship
+  2  values('Umme Habiba',30000,'3 hour');
+
+1 row created.
+--------------------------------------------------------------------------------------
+
+
+
+
+create table thesis
+  2  (
+  3  lerner_id number,
+  4  constraint thesis_lerner_id_fk foreign key(lerner_id)
+  5  references students(student_id),
+  6  professor_id number,
+  7  constraint thesis_professor_id_fk foreign key(professor_id)
+  8  references doctors(doctor_id),
+  9  paper_name varchar2(45)
+ 10  );
+
+Table created.
+
+ insert into thesis
+  2  values(1111024,104,'Epidemics versus pandemics');
+
+
+SQL> insert into thesis
+  2  values(1111037,102,'Child health care');
+
+
+SQL> insert into thesis
+  2  values(1111038,107,'Medical humanitarian missions');
+
+
+SQL> insert into thesis
+  2  values(1111001,108,'');
+
+
+SQL> delete from thesis where lerner_id=1111001;
+
+
+SQL> insert into thesis
+  2  values(1111001,108,'Homoeopathic medicines - the placebo effect');
+
+
+SQL> insert into thesis
+  2  values(1111004,104,'Virus infections - causes and treatment');
+
+
+SQL> insert into thesis
+  2  values(1111010,105,'Is medical research on animals ethical');
+
+SQL> insert into thesis
+  2  values(1111022,107,'Vaccination - dangers versus benefits');
+
+
+SQL> insert into thesis
+  2  values(1111002,104,'Artificial tissues and organs');
+
+
+SQL> insert into thesis
+  2  values(1111033,102,'Rare genetic diseases');
+
+
+SQL> insert into thesis
+  2  values(1111008,103,'Brain injuries');
+
+-------------------------------------------------------------------------------------------
+ create table locations
+  2  (
+  3  street_address varchar2(20),
+  4  postal_code number constraint locations_postal_code_uk unique,
+  5  location_id number,
+  6  st_id number,
+  7  constraint locations_st_id_fk foreign key(st_id)
+  8  references students(student_id),
+  9  d_id number,
+ 10  constraint locations_d_id_fk foreign key(d_id)
+ 11  references doctors(doctor_id)
+ 12  );
+
+Table created.
+insert into locations
+  2  values('Aalto Place',3500,1000,1111001,101);
+
+ insert into locations
+  2  values('Abaco Path',4500,2000,1111002,102);
+
+
+SQL> insert into locations
+  2  values('Abana Path',2300,3000,1111004,103);
+
+SQL> insert into locations
+  2  values('Abasco Court',2200,4000,1111007,104);
+
+
+SQL> insert into locations
+  2  values('Abbeville Loop',2100,5000,1111008,105);
+
+SQL> insert into locations
+  2  values('Abbey Way',3700,6000,1111011,107);
+
+
+SQL> insert into locations
+  2  values('Abel Place',3900,7000,1111012,108);
+
+
+SQL> insert into locations
+  2  values('Abercorn Court',2900,8000,1111015,109);
+
+SQL> insert into locations
+  2  values('Abner Street',1200,9000,1111017,110);
+
+
+SQL> insert into locations
+  2  values('Acosta Court',1100,1001,1111020,111);
+
+
+SQL> insert into locations
+  2  values('Adams Lane',2800,1002,1111022,112);
+
+
+SQL> insert into locations
+  2  values('Addison Avenue',1300,2002,1111023,113);
+
+
+SQL> insert into locations
+  2  values('Adriana Way',2400,2003,1111024,114);
+
+
+SQL> insert into locations
+  2  values('Afton Avenue',2600,3003,1111030,115);
+
+
+SQL> insert into locations
+  2  values('Afton Avenue',4800,5000,1111033,116);
+
+
+SQL> insert into locations
+  2  values('Adriana Way',1900,6000,1111037,118);
+
+
+SQL> insert into locations
+  2  values('Addison Avenue',2500,7000,1111038,119);
+
+
+--------------------------------------------------------------------------------------------
+
+create table regions
+  2  (
+  3  region_id number,
+  4  region_name varchar2(30)
+  5  );
+
+SQL> insert into regions
+  2  values(3500,'Europe');
+
+
+SQL> insert into regions
+  2  values(4500,'Americas');
+
+
+SQL> insert into regions
+  2  values(2300,'Asia');
+
+
+SQL> insert into regions
+  2  values(2200,'Middle East and Africa');
+
+
+SQL> insert into regions
+  2  values(2100,'Americas');
+
+
+SQL> insert into regions
+  2  values(3700,'Americas');
+
+
+SQL> insert into regions
+  2  values(3900,'Middle East and Africa');
+
+
+SQL> insert into regions
+  2  values(2900,'Asia');
+
+
+SQL> insert into regions
+  2  values(1200,'Middle East and Africa');
+
+
+SQL> insert into regions
+  2  values(1100,'Europe');
+
+
+SQL> insert into regions
+  2  values(2800,'Americas');
+
+SQL> insert into regions
+  2  values(1300,'Americas');
+
+
+SQL> insert into regions
+  2  values(1300,'Europe');
+
+
+SQL> insert into regions
+  2  values(2400,'Americas');
+
+
+SQL> insert into regions
+  2  values(2600,'Europe');
+
+
+SQL> insert into regions
+  2  values(2500,'Middle East and Africa');
+
+
+SQL> insert into regions
+  2  values(1900,'Middle East and Africa');
+
+
+SQL> insert into regions
+  2  values(4800,'Middle East and Africa');
+
+-------------------------------------------------------------------------------------
+create table duty
+  2  (
+  3  emp_id number,
+  4  constraint duty_emp_id_fk foreign key(emp_id)
+  5  references students(student_id),
+  6  cabin_no number
+  7  );
+
+Table created.
+insert into duty
+  2  values(1111001,20);
+
+SQL> insert into duty
+  2  values(1111002,21);
+
+
+SQL> insert into duty
+  2  values(1111004,22);
+
+
+SQL> insert into duty
+  2  values(1111007,23);
+
+
+SQL> insert into duty
+  2  values(1111008,24);
+
+
+SQL> insert into duty
+  2  values(1111010,25);
+
+
+SQL> insert into duty
+  2  values(1111011,26);
+
+SQL> insert into duty
+  2  values(1111012,27);
+
+
+SQL> insert into duty
+  2  values(1111015,28);
+
+
+SQL> insert into duty
+  2  values(1111016,29);
+
+
+SQL> insert into duty
+  2  values(1111017,20);
+
+SQL> insert into duty
+  2  values(1111020,21);
+
+
+SQL> insert into duty
+  2  values(1111022,22);
+
+
+SQL> insert into duty
+  2  values(1111023,23);
+
+
+SQL> insert into duty
+  2  values(1111024,24);
+
+
+SQL> insert into duty
+  2  values(1111027,25);
+
+
+SQL> insert into duty
+  2  values(1111030,26);
+
+
+SQL> insert into duty
+  2  values(1111033,27);
+
+SQL> insert into duty
+  2  values(1111037,28);
+
+SQL> insert into duty
+  2  values(1111038,29);
+-------------------------------------------------------------------------------------
+
+ create table patient
+  2  (
+  3     patient_name varchar2(30),
+  4     patient_id number constraint patient_patient_id_pk primary key,
+  5     room_no number constraint patient_room_no_uk unique
+  6  );
+
+Table created.
+insert into patient
+  2  values('Lotfa Yesmin',600,20);
+
+
+SQL> insert into patient
+  2  values('Lotifa Ara',601,21);
+
+
+SQL> insert into patient
+  2  values('Mohammad Arafat',602,22);
+
+
+SQL> insert into patient
+  2  values('Md.AR Rahman',603,23);
+
+
+SQL> insert into patient
+  2  values('Nijum Islam',604,24);
+
+
+SQL> insert into patient
+  2  values('Suborna Alam',605,25);
+
+
+SQL> insert into patient
+  2  values('Fatema Alam',606,26);
+
+
+SQL> insert into patient
+  2  values('Moriyam Ara',607,27);
+
+SQL> insert into patient
+  2  values('Jahid Hasan',608,28);
+
+
+SQL> insert into patient
+  2  values('Habib',609,29);
+
+------------------------------------------------------------------------------------
+create table Pharmaceotical
+  2  (
+  3  drugs_code number,
+  4  constraint pharmaceotical_drugs_code_fk foreign key(drugs_code)
+  5  references courses(course_id),
+  6  total_drugs number,
+  7  company_no number,
+  8  company_name varchar2(20),
+  9  pharmacy_staff number,
+ 10  total_salary number
+ 11  );
+
+Table created.
+insert into pharmaceotical
+  2  values(2221,275990,901,'Squar Pharmaceutical',6506,1706875);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(3331,378949,901,'Squar Pharmaceutical',7095,1567342);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(4441,564738,901,'Squar Pharmaceutical',5694,1435637);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(5551,342563,901,'Squar Pharmaceutical',8794,1243567);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(6661,234352,901,'Squar Pharmaceutical',9804,12435673);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(7771,125342,901,'Squar Pharmaceutical',9805,1324567);
+
+1 row created.
+
+
+SQL> insert into pharmaceotical
+  2  values(2221,234152,902,'Incpta Pharmacetical',8795,1233443);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(3331,7634432,902,'Incpta Pharmacetical',9804,1345267);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(4441,764232,902,'Incpta Pharmacetical',7984,1654324);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(5551,222243516,902,'Incpta Pharmacetical',9784,1787453);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(6661,542314,902,'Incpta Pharmacetical',8976,1786543);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(7771,543263,902,'Incpta Pharmacetical',8675,1887536);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(2221,452312,903,'Bexim Pharmaceutical',8769,1345632);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(3331,524373,903,'Bexim Pharmaceutical',9787,1785434);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(4441,624373,903,'Bexim Pharmaceutical',9687,1876453);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(5551,652341,903,'Bexim Pharmaceutical',8676,1456372);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(6661,452341,903,'Bexim Pharmaceutical',7568,1764538);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(7771,564265,903,'Bexim Pharmaceutical',9686,1874646);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(2221,564265,904,'Opsonin Pharma Ltd',9687,1875327);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(3331,554265,904,'Opsonin Pharma Ltd',8987,1988374);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(4441,854265,904,'Opsonin Pharma Ltd',9987,1678374);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(5551,554265,904,'Opsonin Pharma Ltd',6087,9876543);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(6661,934562,904,'Opsonin Pharma Ltd',8988,1897645);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(7771,334562,904,'Opsonin Pharma Ltd',5688,1637645);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(2221,764562,905,'Renata Limited',9688,1237645);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(3331,764562,905,'Renata Limited',5688,9837645);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(4441,864562,905,'Renata Limited',7788,6537645);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(5551,434562,905,'Renata Limited',8888,3437645);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(6661,494562,905,'Renata Limited',4488,9937645);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(7771,784562,905,'Renata Limited',2188,1937645);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(2221,894562,906,'Healthcare Limited.',9253,7435629);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(3331,934562,906,'Healthcare Limited.',6253,2535629);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(4441,932562,906,'Healthcare Limited.',9373,4355629);
+
+1 row created.
+
+SQL>
+SQL> insert into pharmaceotical
+  2  values(5551,659562,906,'Healthcare Limited.',6543,4357429);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(6661,659562,906,'Healthcare Limited.',9763,9457429);
+
+1 row created.
+
+SQL> insert into pharmaceotical
+  2  values(7771,659562,906,'Healthcare Limited.',9763,9457429);
+
+1 row created.
+------------------------------------------------------------------------------------
+
+create table results
+  2  (
+  3  id number constraint results_id_uk unique
+  4  ,
+  5  level_term varchar2(10),
+  6  CGPA number
+  7  );
+
+ insert into results
+  2  values(1111001,'4-2',3.35);
+
+1 row created.
+
+SQL> insert into results
+  2  values(1111002,'5-1',3.98);
+
+1 row created.
+
+SQL> insert into results
+  2  values(1111004,'5-2',3.76);
+
+1 row created.
+
+SQL> insert into results
+  2  values(1111007,'3-1',3.85);
+
+1 row created.
+
+SQL> insert into results
+  2  values(1111008,'3-2',3.56);
+
+1 row created.
+
+SQL> insert into results
+  2  values(1111010,'4-1',3.87);
+
+1 row created.
+
+SQL> insert into results
+  2  values(1111011,'2-1',3.65);
+
+1 row created.
+
+SQL> insert into results
+  2  values(1111012,'2-1',4.00);
+
+1 row created.
+
+SQL> insert into results
+  2  values(1111015,'2-2',3.22);
+
+1 row created.
+
+SQL> insert into results
+  2  values(1111016,'1-1',3.98);
+
+1 row created.
+
+SQL> insert into results
+  2  values(1111017,'1-1',2.98);
+
+1 row created.
+
+SQL> insert into results
+  2  values(1111022,'5-2',3.99);
+
+1 row created.
+
+SQL> insert into results
+  2  values(1111023,'3-1',3.45);
+
+1 row created.
+
+SQL> insert into results
+  2  values(1111024,'3-2',3.33);
+
+1 row created.
+
+SQL> insert into results
+  2  values(1111027,'3-2',3.22);
+
+1 row created.
+
+SQL> insert into results
+  2  values(1111030,'1-2',3.22);
+
+1 row created.
+
+SQL> insert into results
+  2  values(1111033,'5-2',3.66);
+
+1 row created.
+
+SQL> insert into results
+  2  values(1111037,'5-1',3.88);
+
+1 row created.
+
+SQL> insert into results
+  2  values(1111038,'4-1',3.63);
+
+1 row created.
+
+-----------------------------------------------------------------------------------
+
+create table
+  2  taken_book
+  3  (
+  4  assigned_id number,
+  5  constraint taken_book_assigned_id_fk foreign key(assigned_id)
+  6  references students(student_id),
+  7  issue_date varchar2(30),
+  8  enrolled_book varchar2(100),
+  9  last_date varchar2(30),
+ 10  penalty number
+ 11  );
+
+Table created.
+
+insert into taken_book
+  2  values(1111001,'4/6/2017','The Man Who Mistook His Wife for a Hat and Other Clinical Tales (Paperback)','4/7/2017',0);
+
+1 row created.
+
+SQL> insert into taken_book
+  2  values(1111002,'4/6/2017','Musicophilia: Tales of Music and the Brain','5/7/2017',100);
+
+1 row created.
+
+SQL> insert into taken_book
+  2  values(1111004,'6/5/2017','Hallucinations','5/6/2017',0);
+
+1 row created.
+
+SQL> insert into taken_book
+  2  values(1111007,'2/5/2017','The Mind Eye (Hardcover)','1/6/2017',200);
+
+1 row created.
+
+SQL> insert into taken_book
+  2  values(1111008,'4/6/2017','The Real Beauty Bible','29/6/2017',200);
+
+1 row created.
+
+SQL> insert into taken_book
+  2  values(1111010,'18/6/2017','After the Cut','29/6/2017',50);
+
+1 row created.
+
+SQL> insert into taken_book
+  2  values(1111011,'18/4/2017','After the Cut','29/5/2017',0);
+
+1 row created.
+
+SQL> insert into taken_book
+  2  values(1111012,'18/4/2017','CC Chatterjee's Human Physiology','29/5/2017',100);
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> insert into taken_book
+  2  values(1111012,'18/4/2017','CC Chatterjee Human Physiology','29/5/2017',100);
+
+1 row created.
+
+SQL> insert into taken_book
+  2  values(1111015,'1/4/2017','Perspectives in Cardiothoracic Surgery (Volume V)','29/5/2017',200);
+
+1 row created.
+
+SQL> insert into taken_book
+  2  values(1111016,'1/4/2017','Samson Wrights Applied Physiology','2/5/2017',0);
+
+1 row created.
+
+SQL> insert into taken_book
+  2  values(1111017,'1/4/2017','Samson Wrights Applied Physiology','2/5/2017',60);
+
+1 row created.
+
+---------------------------------------------------------------------------------------------------------
+create table library
+  2  (
+  3     book_name varchar2(100),
+  4     writer_name varchar2(100),
+  5     available_book number,
+  6     dept_lib_code number,
+  7  constraint library_dept_lib_code_fk foreign key(dept_lib_code)
+  8  references courses(course_id)
+  9  );
+
+Table created.
+ insert into library
+  2  values('Atlas of Human Anatomy','Ythkui Aky',6,2221);
+
+1 row created.
+
+SQL> insert into library
+  2  values('Ross and Wilson Anatomy and Physiology in Health and Illness','Yustud Akaui',7,2221);
+
+1 row created.
+
+SQL> insert into library
+  2  values('Clinical Anatomy: Applied Anatomy for Students and Junior Doctors','Abul Kamal Asad',4,2221);
+
+1 row created.
+
+SQL> insert into library
+  2  values('Gray Anatomy for Students, 4th Edition.','Asaduzzamn',3,2221);
+
+1 row created.
+
+SQL> insert into library
+  2  values('Ghai Textbook of Practical Physiology','Monir Ahmed',8,3331);
+
+1 row created.
+
+SQL> insert into library
+  2  values('Ganongs Review of Medical Physiology','Ahemd Monir',9,3331);
+
+1 row created.
+
+SQL> insert into library
+  2  values('Samson Wrights Applied Physiology','Yousof Ahmed',4,3331);
+
+1 row created.
+
+SQL> insert into library
+  2  values('CC Chatterjee Human Physiology','Farida parbin',6,3331);
+
+1 row created.
+
+SQL> insert into library
+  2  values('Perspectives in Cardiothoracic Surgery (Volume V)','Miyataf Ara',6,4441);
+
+1 row created.
+
+SQL> insert into library
+  2  values('Atlas of Robotic Cardiac Surgery','Ahammed Hafij',5,4441);
+
+1 row created.
+
+SQL> insert into library
+  2  values('Manual of Perioperative Care in Adult Cardiac Surgery','Noulen Kabir',5,4441);
+
+1 row created.
+
+SQL> insert into library
+  2  values('TSRA Clinical Scenarios in Cardiothoracic Surgery','Prava Islam',9,4441);
+
+1 row created.
+
+SQL> insert into library
+  2  values('The Man Who Mistook His Wife for a Hat and Other Clinical Tales (Paperback)','Parbin Begum',9,5551);
+
+1 row created.
+
+SQL> insert into library
+  2  values('Musicophilia: Tales of Music and the Brain','Muniara Alam',6,6661);
+
+1 row created.
+
+SQL> insert into library
+  2  values('Hallucinations','Uynas Kil',6,6661);
+
+1 row created.
+
+SQL> insert into library
+  2  values('Hallucinations','Uynas Kil',6,6661);
+
+1 row created.
+
+SQL> insert into library
+  2  values('The Minds Eye (Hardcover)','Ayatrdat Akil',12,7771);
+
+1 row created.
+
+SQL> insert into library
+  2  values('The Real Beauty Bible','Md.Easin',22,7771);
+
+1 row created.
+
+SQL> insert into library
+  2  values('After the Cut','Arafat Islam',32,7771);
+
+1 row created.
+
+SQL> insert into library
+  2  values('Plastic Surgery of the Face','Rabbi Fazle',22,7771);
+
+1 row created.
+
+--------------------------------------------------------------------------------------------------
+
+create table alumni
+  2  (
+  3  alumni_id number constraint alumni_alumni_id_pk primary key,
+  4  alumni_name varchar2(50),
+  5  alumni_cgpa number,
+  6  alumni_dept_code number,
+  7  constraint alumni_alumni_dept_code_fk foreign key(alumni_dept_code)
+  8  references courses(course_id),
+  9  hospital_name varchar2(80),
+ 10  passing_year number
+ 11  );
+
+Table created.
+
+
+SQL> insert into alumni
+  2  values(222201,'Sabikon Nahar',3.87,2221,'Square Hospital.',2001);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(222202,'Oishi Liza',3.87,2221,'Sheikh Fazilatunnesa Mujib Memorial KPJ Specialized Hospital and Nursing College.',2001);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(222203,'Tanannam Islam',3.67,2221,'Popular Diagnostic Centre Ltd.',2001);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(222204,'Joty Islam',3.67,2221,'Popular Diagnostic Centre Ltd.',2001);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(222205,'Nahin Hasan',3.67,2221,'Labaid Hospitals.',2002);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(222206,'Forhad Uddin',3.97,2221,'Ibn Sina Specialized Hospital.',2002);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(222207,'Nuri Zerin',3.97,2221,'United Hospital Limited.',2003);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(333301,'Sabikon Nahar',4.00,3331,'Harun Eye Foundation Hospital.',2001);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(333302,'Lotfa Yesmin',4.00,3331,'Square Hospital.',2005);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(333303,'Oishi Liza',4.00,3331,'Sheikh Fazilatunnesa Mujib Memorial KPJ Specialized Hospital & Nursing College.',2005);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(333304,'Lotifa Ara',4.00,3331,'Popular Diagnostic Centre Ltd.',2006);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(333305,'Mohammad Arafat',4.00,3331,'Anwer Khan Modern Hospital Ltd, Dhaka',2007);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(333306,'Md.AR Rahman',4.00,3331,'Evercare Hospital Dhaka[3]',2002);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(444401,'Nijum Islam',3.97,4441,'Asgar Ali Hospital Gandaria, Dhaka[4]',2001);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(444402,'Suborna Alam',3.97,4441,'Aysha Memorial Specialised Hospital, Dhaka',2003);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(444403,'Fatema Alam',3.97,4441,'Bangabandhu Memorial Hospital (BBMH), Chittagong',2003);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(444404,'Moriyam Ara',3.87,4441,'Bangabandhu Sheikh Mujib Medical University',2003);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(444405,'Jahid Hasan',3.87,4441,'Bangladesh College of Nursing',2003);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(444407,'Habib',3.87,4441,'Bangladesh Eye Hospital Limited, Dhaka[5]',2003);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(555501,'Lotfa Yesmin',3.87,5551,'Bangladesh Medical College Hospital, Dhaka',2004);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(555502,'Lotifa Ara',3.87,5551,'Bangladesh Specialized Hospital',2004);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(555503,'Lotifiara Khan',3.87,5551,'Bangladesh Spine and Orthopaedic General Hospital Ltd, Panthapath, Dhaka',2004);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(555504,'Nazma lotifiara Khan',3.87,5551,'Anwer Khan Modern Hospital Ltd, Dhaka',2004);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(666601,'Nijum Islam',3.57,6661,'Evercare Hospital Dhaka',2000);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(666602,'Nijum Dus',3.57,6661,'Asgar Ali Hospital Gandaria, Dhaka[4]',2000);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(666603,'Nijum Dus',3.57,6661,'Aysha Memorial Specialised Hospital, Dhaka',2000);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(666604,'Moriyam Ara',3.77,6661,'Bangabandhu Memorial Hospital (BBMH), Chittagong',2000);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(777701,'Moriyam Arafat',3.77,7771,'Bangabandhu Sheikh Mujib Medical University',2000);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(777702,'Addison Avenue',3.79,7771,'Bangladesh College of Nursing',2000);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(777703,'Adriana Way',3.79,7771,'Bangladesh Eye Hospital Limited, Dhaka[5]',2000);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(777704,'Afton Avenue',3.79,7771,'Bangladesh Medical College Hospital, Dhaka',2000);
+
+1 row created.
+
+SQL> insert into alumni
+  2  values(777705,'Afton Avenue',3.54,7771,'Bangladesh Specialized Hospital',2000);
+
+1 row created.
+
+---------------------------------------------------------------------------------------------------------------------
+
+
+ create table events
+   (
+   event_name varchar2(50),
+    organizer varchar2(50),
+    event_date varchar2(10) constraint events_event_date_nn not null,
+    event_starting_time number,
+    event_ending_time number,
+    venue varchar2(50) constraint events_venue_nn not null,
+    event_participant_id number,
+   constraint events_event_participant_id_fk foreign key(event_participant_id)
+   references students(student_id)
+);
+
+Table created.
+insert into events
+  2  values('Website Lunching Ceremony','Incepta pharmaceuticals limited','26-7-2015',10.00,11.30,'DMC Principal Meeting Room',1111002);
+
+1 row created.
+
+SQL> insert into events
+    values('Website Lunching Ceremony','Incepta pharmaceuticals limited','26-7-2015',10.00,11.30,'DMC Principal Meeting Room',1111007);
+
+1 row created.
+
+SQL> insert into events
+    values('Website Lunching Ceremony','Incepta pharmaceuticals limited','26-7-2015',10.00,11.30,'DMC Principal Meeting Room',1111008);
+
+1 row created.
+
+SQL> insert into events
+    values('DMC Day','Incepta pharmaceuticals limited','01-07-2016',10.00,4.30,'DMC Principal Meeting Room',1111008);
+
+1 row created.
+
+SQL> insert into events
+    values('DMC Day','Incepta pharmaceuticals limited','01-07-2016',10.00,4.30,'DMC Principal Meeting Room',1111016);
+
+1 row created.
+
+SQL> insert into events
+   values('DMC Day','Incepta pharmaceuticals limited','01-07-2016',10.00,4.30,'DMC Principal Meeting Room',1111007);
+
+1 row created.
+
+SQL> insert into events
+   values('DMC Day','Incepta pharmaceuticals limited','01-07-2016',10.00,4.30,'DMC Principal Meeting Room',1111017);
+
+1 row created.
+
+SQL> insert into events
+    values('Card Day','Incepta pharmaceuticals limited','20-07-2016',10.00,4.40,'DMC Principal Meeting Room',1111001);
+
+1 row created.
+
+SQL> insert into events
+    values('Card Day','Incepta pharmaceuticals limited','20-07-2016',10.00,4.40,'DMC Principal Meeting Room',1111002);
+
+1 row created.
+
+SQL> insert into events
+   values('Card Day','Incepta pharmaceuticals limited','20-07-2016',10.00,4.40,'DMC Principal Meeting Room',1111007);
+
+1 row created.
+
+SQL> insert into events
+    values('Card Day','Incepta pharmaceuticals limited','20-07-2016',10.00,4.40,'DMC Principal Meeting Room',1111016);
+
+1 row created.
+
+SQL> insert into events
+    values('Card Day','Incepta pharmaceuticals limited','20-07-2016',10.00,4.40,'DMC Principal Meeting Room',1111037);
+
+1 row created.
+
+SQL> insert into events
+    values('Card Day','Incepta pharmaceuticals limited','20-07-2016',10.00,4.40,'DMC Principal Meeting Room',1111038);
+
+1 row created.
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+

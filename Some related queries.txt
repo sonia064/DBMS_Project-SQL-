@@ -1,0 +1,181 @@
+1)  select * from administrative;
+2)  select doctor_id as id,salary,email as email_address
+    from doctors;
+3)  select intern_student_name as name, salary+1000 "Amount Salary"
+    from internship;
+4)  select doctor_id as doctor,salary,((salary+(salary*10)/100)*12)
+    "Modified Salary"
+    from doctors;
+5)  select dept_doctor_id||' then dept name of this id is: '||department_name
+    "Information of departments"
+    from departments;
+
+6)  Find the date or schedule on which day course_code:4441 class will be held.
+
+select time,schedule "Date of class"
+  2  from classes
+  3  where cour_id = 4441;
+
+7)  Show the name and visiting hour of internship doctors whom salary is greater than 50000.
+
+ select intern_student_name as name,working_hour "Visiting Hour"
+    from internship
+    where salary > 50000;
+
+8) Find name of students whom emp_id are 1111007,1111008,1111017,1111037,11111038.
+
+select student_name, level_term
+    from students join duty
+    on (student_id=emp_id)
+    where emp_id in(1111007,1111008,1111017,1111037,1111038);
+
+9) Show this kind of pharmaceotical company name their drugs code,total drugs,company no and salary of staff whose starting name is renata.
+
+select company_name as name,drugs_code,total_drugs,company_no,total_salary as salary
+    from pharmaceotical
+    where company_name like 'Renata%';
+
+10)Find book names and students id in descending order whom take the books and also show their penalty if they have.
+
+
+select enrolled_book "Book Name",assigned_id as id,penalty
+    from taken_book
+    order by 2 desc;
+
+11) Fetch just 5 rows of book writer name and available book of the writer and course name.
+
+select writer_name name,available_book book,course_name
+    from courses join library
+    on(course_id=dept_lib_code)
+    fetch first 5 rows only;
+
+
+
+12) find 5th to 9th student id whom take book and it's issue date and last date.
+
+
+select assigned_id,issue_date,last_date
+    from taken_book
+    offset 4 rows fetch next 5 rows only;
+
+13) show n no company name and their total staff. (N is depend on user)
+
+set verify off
+
+SQL> select company_name,pharmacy_staff as staff
+  2  from pharmaceotical
+  3  where company_no=&company_no;
+Enter value for company_no: 902
+
+
+14) How many drugs of medicine are available in Square Pharmaceuticals Limited company.
+
+ select total_drugs,company_name
+  2  from pharmaceotical join courses
+  3  on(drugs_code=course_id)
+  4  where company_name='Squar Pharmaceutical';
+
+
+15) Find the names(Capital Letter) and id's of those students who are on duty with the 604 no patient.
+
+
+ select upper(student_name),student_id
+  2  from duty join students
+  3  on(emp_id=student_id)
+  4  join patient
+  5  on(cabin_no=room_no)
+  6  where patient_id=604;
+
+16) convert schedule from classes table.
+
+
+ select schedule, to_char(schedule,'dd-mm-rrrr'),
+  2  to_char(schedule,'dd-mm-rrrr hh:mi:ssAM')
+  3  from classes;
+
+17) convert postal code in formal way.
+
+ select postal_code, to_char(postal_code,'9,999')
+  2  from locations;
+
+
+18) Show course(dept) name, company no and their total staff salary.If the company is squar pharmaceotical then modify salary like total_salary-1000000 and if company is Incpta Pharmacetical then modify salary as total_salary-50000 and if company is Bexim Pharmaceutical then modify salary as total_salary-70000 then rest of the company's dept salary remain same. 
+
+SELECT course_name,company_no, total_salary,
+  2  DECODE(company_name, 'Squar Pharmaceutical', total_salary-1000000,
+  3  'Incpta Pharmacetical', total_salary-50000,
+  4  'Bexim Pharmaceutical', total_salary-70000,
+  5  total_salary)REVISED_SALARY
+  6  from courses join pharmaceotical
+  7  on(course_id=drugs_code);
+
+
+20) Find total number of students using aggregation function.
+
+ select count(student_id)
+  2  from students;
+
+21) Find doctor name whose department code is 4441.
+
+ select distinct (doctor_id),doctor_name,department_id
+  2  from departments join doctors
+  3  on(department_id=dept_id)
+  4  where department_id = 4441;
+
+21) Find min salary,sum of salary and total number of doctors.
+
+select sum(salary),count(doctor_id),min(salary)
+    from doctors
+    group by dept_id;
+
+22) Find average salary of all doctors and show the result $1,23,000BDT format.
+
+select avg(salary),to_char(avg(salary),'$9,99,999') BDT
+    from doctors;
+
+
+
+23)Find email,phone number,visiting hour of doctor whose last part of educational qualification is Phil and salary is greater than 60000 and also department is anatomy.(using sub query)
+
+
+ select email,phone_number,visiting_hour
+    from doctors
+    where dept_id =3331
+    and salary in(select salary
+                  from doctors
+                  where salary>60000
+                  and edicational_qualification like '%Phil');
+
+24) Find student name,id and her department whose CGPA is more than others.
+
+
+select student_name,student_id,course_name
+  2  from students join results
+  3  on(student_id=id)
+  4  join courses
+  5  on(cours_code=course_id)
+  6  where cgpa=(select max(cgpa)
+  7  from results);
+
+25) Create view where we see the details address of those doctors and students whose address actually in the same location.
+
+
+ create view address_view_1
+  2  as
+  3  select region_name,d_id "Doctor Id",st_id "student id"
+  4  from regions join locations
+  5  on(region_id=postal_code);
+
+
+
+26) Generate a view named class_time_view consisting of professor name with his id,class time.
+
+ create view class_time_view
+  2  as
+  3  select prof_id,doctor_name,time "Class time"
+  4  from classes join doctors
+  5  on(prof_id=doctor_id);
+
+ 
+
+
